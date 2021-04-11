@@ -61,3 +61,7 @@ class GroupNoRegistered(OOCfgException):
 class NoSupportType(OOCfgException):
     def __init__(self, type_):
         self.message = "This type %s does not support" % type_
+
+
+class MultiGroupNotSupport(OOCfgException):
+    message = "Multi Group Not Support!"

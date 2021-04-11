@@ -1,5 +1,7 @@
 # The OOCfg 
-![](https://img.shields.io/static/v1?label=整体进度&message=50%&color=blue)
+![](https://img.shields.io/static/v1?label=整体进度&message=60%&color=blue)
+![](https://img.shields.io/static/v1?label=license&message=MIT&color=blue)
+
 
 ![a](https://img.shields.io/static/v1?label=ini&message=support&color=succes)
 ![a](https://img.shields.io/static/v1?label=yaml&message=support&color=success)
@@ -11,11 +13,11 @@
 
 ## 进度
 
-- `.ini` 完成90%
+- `.ini` 完成
 
-- `.yaml` 完成0%
+- `.yaml` 完成90%
 
-- `.conf` 完成0%
+- `.conf` 完成90%
 
 
 ## 使用说明
@@ -48,6 +50,8 @@ print(cfg.CONF.CLASS.school)
 # xi wang xiao xue
 
 ```
+
+详见测试脚本[test.py](./test.py)
 
 ## 参考
 

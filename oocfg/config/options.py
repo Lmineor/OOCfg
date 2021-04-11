@@ -190,7 +190,9 @@ class ConfigOpts(object):
 
     def set_config_file_value(self, config_map):
         for group, opts in config_map.items():
-            registered_group = self._get_group(group, from_file=True)
+            registered_group = self._get_group(group.upper(), from_file=True)
+            if not isinstance(opts, dict):
+                opts = dict(opts)
             for opt_name, opt_value in opts.items():
                 registered_group.set_opt_value(opt_name, opt_value)
 

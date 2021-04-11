@@ -4,8 +4,12 @@
 """
 @Author  : lex(luohai2233@163.com)
 """
-from oocfg.config import exceptions
+import os
+
 import configparser
+import yaml
+
+from oocfg.config import exceptions
 
 
 def get_config_file_type(config_file):
@@ -29,13 +33,24 @@ def load_ini_cofing(config_file):
     sections = config_parser.sections()
     for section in sections:
         config_map[section] = config_parser.items(section)
-
     return config_map
 
 
-def load_yaml_config(cofing_file):
-    return {}
+def load_yaml_config(config_file):
+    config = []
+    if not os.path.exists(config_file):
+        raise exceptions.ConfigFileNotFoundError(file=config_file)
+    with open(config_file, 'r', encoding='utf-8') as ymlfile:
+        cfgs = yaml.load_all(ymlfile, Loader=yaml.SafeLoader)
+        for cfg in cfgs:
+            config.append(cfg)
+
+    if len(config) > 1:
+        raise exceptions.MultiGroupNotSupport
+    return config[0] if config else {}
 
 
 def load_conf_config(config_file):
+    if not os.path.exists(config_file):
+        raise exceptions.ConfigFileNotFoundError(file=config_file)
     return {}
