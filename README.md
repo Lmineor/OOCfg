@@ -66,7 +66,6 @@ group = {
     'info': info_opts
 }
 
-
 file = '/The/path/to/your/config/file/config.ini'
 cfg.startup(group, config_file=file)
 print(cfg.CONF.CLASS.school)

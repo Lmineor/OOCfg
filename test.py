@@ -5,8 +5,8 @@
 @Author  : lex(luohai2233@163.com)
 """
 
-from oocfg.cfg import cfg
-from oocfg.config import options
+from oocfg import cfg
+from oocfg import options
 
 info_opts = [
     options.StrOpt('name', default='xiao', helper='this is name config'),
