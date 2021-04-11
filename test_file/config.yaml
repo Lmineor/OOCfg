@@ -2,6 +2,8 @@ info:
   sex: female
   name: xiaoming
   age: 11
+  car: audi, bench, sanlunche
+  sexy: false
 
 class:
   class: 7

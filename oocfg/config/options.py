@@ -79,8 +79,8 @@ class StrOpt(Opt):
 
 
 class ListOpt(Opt):
-    def __init__(self, **kwargs):
-        super(ListOpt, self).__init__( **kwargs)
+    def __init__(self, name, **kwargs):
+        super(ListOpt, self).__init__(name, **kwargs)
 
     def _validate(self, current):
         if not isinstance(current, list):
@@ -94,7 +94,7 @@ class ListOpt(Opt):
                 continue
 
             # we just convert all the list value to string type
-            current_value.append(str(cur))
+            current_value.append(str(cur.strip()))
         self.current = current_value
 
 
@@ -102,15 +102,15 @@ class BoolOpt(Opt):
     TRUE_VALUES = ['true', '1', 'yes', 'on']
     FALSE_VAULES = ['false', '0', 'no', 'off']
 
-    def __init__(self,  **kwargs):
-        super(BoolOpt, self).__init__(**kwargs)
+    def __init__(self, name, **kwargs):
+        super(BoolOpt, self).__init__(name, **kwargs)
 
     def _validate(self, current):
-        if current.lower() not in self.TRUE_VALUES or current.lower() not in self.FALSE_VAULES:
+        if not (str(current).lower() in self.TRUE_VALUES or str(current).lower() in self.FALSE_VAULES):
             raise exceptions.BoolOptError(name=self.name)
 
     def convert_and_set_current(self, current):
-        if current.lower in self.TRUE_VALUES:
+        if str(current).lower() in self.TRUE_VALUES:
             self.current = True
         else:
             self.current = False
@@ -128,8 +128,8 @@ class IntOpt(Opt):
 
 
 class FloatOpt(Opt):
-    def __init__(self, **kwargs):
-        super(FloatOpt, self).__init__(**kwargs)
+    def __init__(self, name, **kwargs):
+        super(FloatOpt, self).__init__(name, **kwargs)
 
     def _validate(self, current):
         float(current)
