@@ -11,6 +11,7 @@ import os
 
 import config.options as opt
 from oocfg.config import exceptions
+from config import utils
 
 
 class Config(object):
@@ -18,61 +19,53 @@ class Config(object):
     GROUP_REGISTERED = False
 
     def __init__(self):
+        self.config_file = None
         self._setup_cfg()
-
-    def _get_config_file_type(self):
-        if self.config_file.endswith('.ini'):
-            return 'ini'
-        elif self.config_file.endswith('.yaml'):
-            return 'yaml'
-        elif self.config_file.endswith('.conf'):
-            return 'conf'
-        else:
-            raise exceptions.NoSupportType(self.config_file.split('.')[-1])
-
-    def _load_config(self):
-        conf_type = self._get_config_file_type()
-        if conf_type == 'ini':
-            self._load_ini_cofing()
-        elif conf_type == 'yaml':
-            self._load_yaml_config()
-        elif conf_type == 'conf':
-            self._load_conf_config()
-
-    def _load_ini_cofing(self):
-        config_map = {}
-        if not os.path.exists(self.config_file):
-            raise exceptions.ConfigFileNotFoundError(file=self.config_file)
-        config_parser = configparser.ConfigParser()
-        config_parser.read(config_file, encoding='utf-8')
-
-        sections = config_parser.sections()
-        for section in sections:
-            config_map[section] = config_parser.items(section)
-
-        self.config_map = config_map
-
-    def _load_yaml_config(self, cofing_file):
-        self.config_map = {}
-
-    def _load_conf_config(self, config_file):
-        self.config_map = {}
 
     def _setup_cfg(self):
         self.CONF = opt.ConfigOpts()
 
+    def _load_config_file(self):
+        conf_type = utils.get_config_file_type(self.config_file)
+        if conf_type == 'ini':
+            self.config_map = utils.load_ini_cofing(self.config_file)
+        elif conf_type == 'yaml':
+            self.config_map = utils.load_yaml_config(self.config_file)
+        elif conf_type == 'conf':
+            self.config_map = utils.load_conf_config(self.config_file)
+
     def set_default_config(self, sections):
+        """
+        set default config value.
+        After the default config value, we can override the config with config file.
+        This is import because all the config load from config file
+        will work after this method
+        :param sections:
+        :return:
+        """
         for group, opts in sections.items():
             self.CONF.register_opts(group.upper(), opts)
         self.GROUP_REGISTERED = True
 
-    def load_file_config(self, config_file):
+    def startup(self, sections, config_file=None, auto_find=False):
+        """
+        main method of load config file
+        :param config_file: the absolute path of config_file, like, /etc/project/config.ini
+        :param sections: the default config group to register
+        :param auto_find: if config_file is None, whether to find config file
+        :return:
+        """
+        self.set_default_config(sections)
+
         # this method should be called after register_all_group
+        if config_file is None and not auto_find:
+            # the default config value is enough
+            return
         self.config_file = config_file
-        self._load_config()
+        self._load_config_file()
         if not self.GROUP_REGISTERED:
             raise exceptions.GroupNoRegistered()
-        self.cfg.set_config_file_value(self.config_map)
+        self.CONF.set_config_file_value(self.config_map)
 
 
 cfg = Config()

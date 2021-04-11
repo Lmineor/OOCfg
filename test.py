@@ -24,8 +24,6 @@ group = {
     'info': info_opts
 }
 
-
-cfg.set_default_config(group)
-
+cfg.startup(group)
 print(cfg.CONF.CLASS.school)
-# cfg.load_file_config()
+
