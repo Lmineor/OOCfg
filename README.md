@@ -1,5 +1,5 @@
-# The OOCfg 
-![](https://img.shields.io/static/v1?label=整体进度&message=60%&color=blue)
+# The OOCfg
+
 ![](https://img.shields.io/static/v1?label=license&message=MIT&color=blue)
 
 
@@ -38,9 +38,9 @@ ini配置文件的section名已转换为大写，本例中`info`转换为`INFO`
 
 - `.ini` 完成
 
-- `.yaml` 完成90%
+- `.yaml` 完成
 
-- `.conf` 完成0%
+- `.conf` 完成
 
 
 ## 3⃣️ <a id="示例">示例</a>

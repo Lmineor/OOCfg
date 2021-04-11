@@ -51,6 +51,4 @@ def load_yaml_config(config_file):
 
 
 def load_conf_config(config_file):
-    if not os.path.exists(config_file):
-        raise exceptions.ConfigFileNotFoundError(file=config_file)
-    return {}
+    return load_ini_cofing(config_file)
