@@ -4,12 +4,8 @@
 """
 @Author  : lex(luohai2233@163.com)
 """
-
-import exceptions
-try:
-    import ConfigParser as configparser
-except ImportError:
-    import configparser
+from oocfg.config import exceptions
+import configparser
 
 
 def get_config_file_type(config_file):

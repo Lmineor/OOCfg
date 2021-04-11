@@ -8,7 +8,7 @@
 The module to parse the config file
 """
 
-import exceptions
+from oocfg.config import exceptions
 
 
 class Opt(object):

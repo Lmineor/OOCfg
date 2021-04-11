@@ -7,11 +7,9 @@
 
 The module to parse the config file
 """
-import os
-
-import config.options as opt
+from oocfg.config import options as opt
 from oocfg.config import exceptions
-from config import utils
+from oocfg.config import utils
 
 
 class Config(object):
