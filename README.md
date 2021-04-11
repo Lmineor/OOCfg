@@ -40,7 +40,7 @@ ini配置文件的section名已转换为大写，本例中`info`转换为`INFO`
 - `.conf` 完成90%
 
 
-## 使用说明
+## 示例
 
 ```python
 
@@ -64,10 +64,9 @@ group = {
 }
 
 
-cfg.set_default_config(group)
-
+file = '/The/path/to/your/config/file/config.ini'
+cfg.startup(group, config_file=file)
 print(cfg.CONF.CLASS.school)
-# xi wang xiao xue
 
 ```
 
