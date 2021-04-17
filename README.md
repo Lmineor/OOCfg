@@ -11,7 +11,7 @@
 
 此模块用来读取配置文件，封装了其他格式配置文件的访问与加载，并可以通过以属性的方式来访问配置项。
 
-现已支持`ini`, `yaml`, 其他格式适配进度见[这里](#进度)。
+现已支持`ini`, `yaml`，`conf`格式的配置文件
 
 1⃣️1⃣️ 属性访问的方式如下：
 
@@ -33,17 +33,7 @@ cfg.CONF.INFO.name
 ini配置文件的section名已转换为大写，本例中`info`转换为`INFO`
 
 
-
-## 2⃣️ <a id="进度">进度</a>
-
-- `.ini` 完成
-
-- `.yaml` 完成
-
-- `.conf` 完成
-
-
-## 3⃣️ <a id="示例">示例</a>
+## 2⃣️ <a id="示例">示例</a>
 
 ```python
 
@@ -74,6 +64,6 @@ print(cfg.CONF.CLASS.school)
 
 详见测试脚本[test.py](./test.py)
 
-## 4⃣️ <a id="参考">参考</a>
+## 3⃣️ <a id="参考">参考</a>
 
 [oslo.config](https://github.com/openstack/oslo.config)
