@@ -20,15 +20,15 @@ class OOCfgException(Exception):
 
 
 class NoSuchChoiceError(OOCfgException):
-    message = "Option %(name)s value should be in %(choices)s, You give %(current)s"
+    message = "Option %(name)s value should be in %(choices)s, You give %(current)s ."
 
 
 class ListTypeError(OOCfgException):
-    message = "Option %(name)s value's type should be a type of List"
+    message = "Option %(name)s value's type should be a type of List!"
 
 
 class BoolOptError(OOCfgException):
-    message = "Option %(name)s value's type should be a type of Bool"
+    message = "Option %(name)s value's type should be a type of Bool!"
 
 
 class ConfigFileNotFoundError(OOCfgException):
@@ -51,17 +51,29 @@ class NoSuchGroup(OOCfgException):
 
 class NoSuchOpt(OOCfgException):
     def __init__(self, opt):
-        self.message = "No such opt %s error" % opt
+        self.message = "No such opt %s error!" % opt
 
 
 class GroupNoRegistered(OOCfgException):
-    message = "Not all Group has registered "
+    message = "Not all Group has registered!"
 
 
 class NoSupportType(OOCfgException):
     def __init__(self, type_):
-        self.message = "This type %s does not support" % type_
+        self.message = "This type %s does not support." % type_
 
 
 class MultiGroupNotSupport(OOCfgException):
     message = "Multi Group Not Support!"
+
+
+class EmptySections(OOCfgException):
+    message = "Empty Sections."
+
+
+class SectionsFormatError(OOCfgException):
+    message = "sections should be a format of dict."
+
+
+class OptsFormatError(OOCfgException):
+    message = "Opts Format Error!"

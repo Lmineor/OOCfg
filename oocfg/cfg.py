@@ -42,8 +42,19 @@ class Config(object):
         :return:
         """
         for group, opts in sections.items():
+            self.validate_opts(opts)
             self.CONF.register_opts(group.upper(), opts)
         self.GROUP_REGISTERED = True
+
+    def validate_sections(self, sections):
+        if sections == '' or sections == {}:
+            raise exceptions.EmptySections()
+        if isinstance(sections, list):
+            raise exceptions.SectionsFormatError()
+
+    def validate_opts(self, opts):
+        if not isinstance(opts, list):
+            raise exceptions.OptsFormatError()
 
     def startup(self, sections, config_file=None, auto_find=False):
         """
@@ -53,6 +64,8 @@ class Config(object):
         :param auto_find: if config_file is None, whether to find config file
         :return:
         """
+        self.validate_sections(sections)
+
         self.set_default_config(sections)
 
         # this method should be called after register_all_group

@@ -67,6 +67,6 @@ def test_conf_config():
 if __name__ == '__main__':
     test_default_config()
     # test_load_yaml()
-    test_yaml_cofing()
+    test_yaml_config()
     test_ini_config()
     test_conf_config()
