@@ -39,7 +39,7 @@ def test_load_yaml():
     print(load_yaml_config(file))
 
 
-def test_yaml_cofing():
+def test_yaml_config():
     file = '/Users/lex/code/coding/OOCfg/test_file/config.yaml'
     cfg.startup(group, config_file=file)
     print(cfg.CONF.CLASS.school)
