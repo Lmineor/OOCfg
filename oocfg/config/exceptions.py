@@ -12,11 +12,8 @@ class OOCfgException(Exception):
     """
     message = "This is the base exception"
 
-    def __init__(self, **kw):
-        self.msg = self.message % kw
-
     def __str__(self):
-        return self.msg
+        return self.message
 
 
 class NoSuchChoiceError(OOCfgException):
