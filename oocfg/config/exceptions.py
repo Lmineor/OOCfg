@@ -12,6 +12,9 @@ class OOCfgException(Exception):
     """
     message = "This is the base exception"
 
+    def __init__(self, **kwargs):
+        self.message = self.message % kwargs
+
     def __str__(self):
         return self.message
 
