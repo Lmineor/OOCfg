@@ -36,7 +36,7 @@ class ConfigFileNotFoundError(OOCfgException):
 
 
 class DuplicateOptError(OOCfgException):
-    message = "Duplicate Opt Error for %s!"
+    message = "Duplicate Opt Error for %(opt)s!"
 
 
 class DefaultValueError(OOCfgException):
@@ -77,3 +77,7 @@ class SectionsFormatError(OOCfgException):
 
 class OptsFormatError(OOCfgException):
     message = "Opts Format Error!"
+
+
+class ChoicesTypeError(OOCfgException):
+    message = "choices need to be the type of list"

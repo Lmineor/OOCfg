@@ -2,6 +2,7 @@
 
 ![](https://img.shields.io/static/v1?label=license&message=MIT&color=blue)
 
+![a](https://img.shields.io/static/v1?label=Python3.6&message=support&color=success)
 
 ![a](https://img.shields.io/static/v1?label=ini&message=support&color=succes)
 ![a](https://img.shields.io/static/v1?label=yaml&message=support&color=success)
@@ -62,7 +63,7 @@ print(cfg.CONF.CLASS.school)
 
 ```
 
-详见测试脚本[test.py](./test.py)
+详见测试脚本[test.py](./test_.py)
 
 ## 3⃣️ <a id="参考">参考</a>
 
