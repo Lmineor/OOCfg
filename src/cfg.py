@@ -9,9 +9,9 @@ The module to parse the config file
 """
 from typing import List
 
-from oocfg.config import options as opt
-from oocfg.config import exceptions
-from oocfg.config import utils
+from src.config import options as opt
+from src.config import exceptions
+from src.config import utils
 
 
 class Config(object):
@@ -21,6 +21,7 @@ class Config(object):
     def __init__(self):
         self.config_file = None
         self.config_map = None
+        self.CONF = None
         self._setup_cfg()
 
     def _setup_cfg(self):

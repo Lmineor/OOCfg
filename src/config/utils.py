@@ -9,7 +9,7 @@ import os
 import configparser
 import yaml
 
-from oocfg.config import exceptions
+from src.config import exceptions
 
 
 def get_config_file_type(config_file):

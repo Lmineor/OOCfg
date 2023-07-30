@@ -9,7 +9,7 @@ The module to parse the config file
 """
 from typing import List, Dict, Any
 
-from oocfg.config import exceptions
+from src.config import exceptions
 
 
 class Opt(object):

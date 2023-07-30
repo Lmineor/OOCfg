@@ -1,0 +1,23 @@
+CHANGES
+=======
+
+* ok
+* just store tmp
+* 修复报错处理
+* 修复报错处理
+* validate the format of Group and Opts
+* fix the spell error
+* update readme
+* add setup
+* do debug
+* 调整结构
+* 三种配置文件完成适配
+* 更新说明 again
+* 更新说明 again
+* 更新说明
+* 添加测试用例
+* rm .idea file
+* 一些更新
+* 调整引包结构
+* 调整结构，将加载配置文件方法归置到utils中
+* first commit

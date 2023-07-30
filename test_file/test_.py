@@ -8,10 +8,10 @@ import os
 
 import pytest
 
-from oocfg import cfg
-from oocfg import options
+from src import cfg
+from src.config import options
 
-from oocfg.config import exceptions
+from src.config import exceptions
 
 
 def test_str_opt():
