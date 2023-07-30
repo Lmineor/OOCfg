@@ -1,10 +1,11 @@
 info:
-  sex: female
-  name: xiaoming
-  age: 11
-  car: audi, bench, lunche
-  sexy: false
+  name: Mke
+  age: 22
+  gender: male
+  books: c++, python, golang
+  humour: false
+  height: 1.77
 
-class:
-  class: 7
-  school: OUC(Ocean University of China)1
+education:
+  grade: 4
+  school: OUC(Ocean University of China)

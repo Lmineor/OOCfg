@@ -42,24 +42,24 @@ from oocfg.cfg import cfg
 from oocfg.config import options
 
 info_opts = [
-    options.StrOpt('name', default='xiao', helper='this is name config'),
-    options.IntOpt('age', default=18, helper='this is age config'),
-    options.StrOpt('sex', default='female', helper='this is gender config', choices=['female', 'male'])
-]
+        options.StrOpt('name', default='Joe', helper='name info'),
+        options.IntOpt('age', default=18, helper='age info'),
+        options.StrOpt('gender', default='female', helper='gender info', choices=['female', 'male']),
+        options.ListOpt('books', default=[], helper='books info'),
+        options.BoolOpt('humour', default=True, helper='is humour'),
+        options.FloatOpt('height', default=1.78, helper="height(m)")
+    ]
 
 class_opts = [
-    options.IntOpt('class', default='6', helper='the class grade'),
-    options.StrOpt('school', default='xi wang xiao xue', helper='school name')
+    options.IntOpt('grade', default='6', helper='the class grade'),
+    options.StrOpt('school', default='No1. School', helper='school name')
 ]
-
-group = {
-    'class': class_opts,
-    'info': info_opts
-}
+cfg.register_group("education", class_opts)
+cfg.register_group("info", info_opts)
 
 file = '/The/path/to/your/config/file/config.ini'
-cfg.startup(group, config_file=file)
-print(cfg.CONF.CLASS.school)
+cfg.startup(config_file=file)
+print(cfg.CONF.INFO.name)
 
 ```
 

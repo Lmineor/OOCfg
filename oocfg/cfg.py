@@ -7,6 +7,8 @@
 
 The module to parse the config file
 """
+from typing import List
+
 from oocfg.config import options as opt
 from oocfg.config import exceptions
 from oocfg.config import utils
@@ -18,19 +20,22 @@ class Config(object):
 
     def __init__(self):
         self.config_file = None
+        self.config_map = None
         self._setup_cfg()
 
     def _setup_cfg(self):
         self.CONF = opt.ConfigOpts()
 
     def _load_config_file(self):
+        config_map = None
         conf_type = utils.get_config_file_type(self.config_file)
         if conf_type == 'ini':
-            self.config_map = utils.load_ini_cofing(self.config_file)
+            config_map = utils.load_ini_cofing(self.config_file)
         elif conf_type == 'yaml':
-            self.config_map = utils.load_yaml_config(self.config_file)
+            config_map = utils.load_yaml_config(self.config_file)
         elif conf_type == 'conf':
-            self.config_map = utils.load_conf_config(self.config_file)
+            config_map = utils.load_conf_config(self.config_file)
+        return config_map
 
     def set_default_config(self, sections):
         """
@@ -46,6 +51,11 @@ class Config(object):
             self.CONF.register_opts(group.upper(), opts)
         self.GROUP_REGISTERED = True
 
+    def register_group(self, group: str, opts: List[opt.Opt]):
+        self.validate_opts(opts)
+        self.CONF.register_opts(group.upper(), opts)
+        self.GROUP_REGISTERED = True
+
     def validate_sections(self, sections):
         if sections == '' or sections == {}:
             raise exceptions.EmptySections()
@@ -56,7 +66,7 @@ class Config(object):
         if not isinstance(opts, list):
             raise exceptions.OptsFormatError()
 
-    def startup(self, sections, config_file=None, auto_find=False):
+    def startup(self, config_file=None, auto_find=False):
         """
         main method of load config file
         :param config_file: the absolute path of config_file, like, /etc/project/config.ini
@@ -64,16 +74,12 @@ class Config(object):
         :param auto_find: if config_file is None, whether to find config file
         :return:
         """
-        self.validate_sections(sections)
-
-        self.set_default_config(sections)
-
         # this method should be called after register_all_group
         if config_file is None and not auto_find:
             # the default config value is enough
             return
         self.config_file = config_file
-        self._load_config_file()
+        self.config_map = self._load_config_file()
         if not self.GROUP_REGISTERED:
             raise exceptions.GroupNoRegistered()
         self.CONF.set_config_file_value(self.config_map)

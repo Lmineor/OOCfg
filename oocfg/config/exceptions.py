@@ -55,7 +55,7 @@ class NoSuchOpt(OOCfgException):
 
 
 class GroupNoRegistered(OOCfgException):
-    message = "Not all Group has registered!"
+    message = "Group has not been registered!"
 
 
 class NoSupportType(OOCfgException):

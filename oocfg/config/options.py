@@ -18,16 +18,16 @@ class Opt(object):
     """
 
     def __init__(self, name: str, default=None, helper='', alias=None, current=None):
-        self.name = name.replace(" ", "")
+        self._name = name.replace(" ", "")
         self.helper = helper
 
         default = self._validate(default)
         self.default = default
 
         if alias is None:
-            self.alias = self.name.replace('-', '_')
+            self._alias = self._name.replace('-', '_')
         else:
-            self.alias = alias
+            self._alias = alias
         self.current = None
         if current is not None:
             self._validate(current)
@@ -65,7 +65,7 @@ class Opt(object):
         return self.default
 
     def __str__(self):
-        return "<name: %(name)s, value %(value)s>" % {"name": self.name, "value": self.value}
+        return "<name: %(name)s, value %(value)s>" % {"name": self._name, "value": self.value}
 
     def __repr__(self):
         return self.__str__()
@@ -101,7 +101,7 @@ class StrOpt(Opt):
         value = value.replace(" ", "")
         if self.choices:
             if value not in self.choices:
-                raise exceptions.NoSuchChoiceError(name=self.name, choices=self.choices, current=value)
+                raise exceptions.NoSuchChoiceError(name=self._name, choices=self.choices, current=value)
         return value
 
     def convert_and_set_current(self, current: str):
@@ -118,7 +118,7 @@ class ListOpt(Opt):
 
     def _validate(self, value: List[str]) -> List:
         if not isinstance(value, list):
-            raise exceptions.ListTypeError(name=self.name)
+            raise exceptions.ListTypeError(name=self._name)
         return value
 
     def convert_and_set_current(self, current: str):
@@ -146,7 +146,7 @@ class BoolOpt(Opt):
             return value
         value = str(str(value).replace(" ", "")).lower()
         if not (value in self.true_values or value in self.false_values):
-            raise exceptions.BoolOptError(name=self.name)
+            raise exceptions.BoolOptError(name=self._name)
         if value in self.true_values:
             return True
         else:
@@ -188,7 +188,7 @@ class FloatOpt(Opt):
 class GroupOpt(object):
     def __init__(self, name: str):
         name = name.replace(" ", "")
-        self.name = name
+        self._name = name
 
         self._opts = {}  # {alias: Opt}
 
@@ -201,7 +201,7 @@ class GroupOpt(object):
         if _is_opt_registered(self._opts, opt):
             return False
 
-        self._opts[opt.alias] = opt
+        self._opts[opt._alias] = opt
         return True
 
     def _unregister_opt(self, opt):
@@ -216,6 +216,8 @@ class GroupOpt(object):
         self._opts = {}
 
     def set_opt_value(self, opt: str, current: Any):
+        if opt.lower() not in self._opts:
+            return
         self._opts[opt].convert_and_set_current(current)
 
     def __getattr__(self, opt: Opt):
@@ -228,7 +230,7 @@ class GroupOpt(object):
         return self._opts[opt].value
 
     def __str__(self):
-        return self.name.upper()
+        return self._name.upper()
 
     def __repr__(self):
         return self.__str__()
@@ -240,6 +242,8 @@ class ConfigOpts(object):
 
     def set_config_file_value(self, config_map: Dict[str, Dict[str, str]]):
         for group, opts in config_map.items():
+            if group.upper() not in self._group:
+                continue
             registered_group = self._get_group(group, from_file=True)
             if not isinstance(opts, dict):
                 opts = dict(opts)
@@ -285,9 +289,9 @@ def _is_opt_registered(opts: Dict[str, Opt], opt: Opt):
     :returns: True if opt was previously registered, False otherwise
     :raises: DuplicateOptError if a naming conflict is detected
     """
-    if opt.alias in opts:
-        if opts[opt.alias] != opt:
-            raise exceptions.DuplicateOptError(opt=opt.name)
+    if opt._alias in opts:
+        if opts[opt._alias] != opt:
+            raise exceptions.DuplicateOptError(opt=opt._name)
         return True
     else:
         return False
